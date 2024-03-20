@@ -1,26 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Link } from 'react-router-dom';
+import styled, { createGlobalStyle } from 'styled-components';
+import reset from 'styled-reset';
+import { StyledLink } from './components/testLink.style';
 
 function App() {
+  const GlobalStyle = createGlobalStyle`
+    ${reset}
+    `;
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React123
-        </a>
-      </header>
-    </div>
+    <Container className='App'>
+      <GlobalStyle />
+      <h1>App</h1>
+      <StyledLink to='components'>Go to components page</StyledLink>
+    </Container>
   );
 }
+
+const Container = styled.div`
+  margin: 0 15px;
+`;
 
 export default App;
