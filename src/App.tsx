@@ -1,18 +1,14 @@
-import { Link } from 'react-router-dom';
-import styled, { createGlobalStyle } from 'styled-components';
-import reset from 'styled-reset';
+import styled, { ThemeProvider } from 'styled-components';
 import { StyledLink } from './components/testLink.style';
+import { theme, Ttheme } from './theme/theme';
 
 function App() {
-  const GlobalStyle = createGlobalStyle`
-    ${reset}
-    `;
   return (
-    <Container className='App'>
-      <GlobalStyle />
-      <h1>App</h1>
-      <StyledLink to='components'>Go to components page</StyledLink>
-    </Container>
+    <ThemeProvider theme={theme}>
+      <Container className='App'>
+        <StyledLink to='components'>Go to components page</StyledLink>
+      </Container>
+    </ThemeProvider>
   );
 }
 
