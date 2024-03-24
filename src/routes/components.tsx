@@ -21,28 +21,25 @@ const ComponentsPage = (props: unknown) => {
         <CirclesWrapper>
           <CircleComponent
             percentage={20}
-            percentageText='loading'
             text='title'
+            title='title 100%'
             size='xSmallCircle'
             type='orange'
           />
           <CircleComponent
             percentage={20}
-            percentageText='loading'
             text='title'
             size='xSmallCircle'
             type='purple'
           />
           <CircleComponent
             percentage={20}
-            percentageText='loading'
             text='title'
             size='xSmallCircle'
             type='blue'
           />
           <CircleComponent
             percentage={20}
-            percentageText='loading'
             text='title'
             size='xSmallCircle'
             type='yellow'
@@ -69,7 +66,57 @@ const ComponentsPage = (props: unknown) => {
           <CircleComponent text='title' size='xLargeCircle' type='blue' />
           <CircleComponent text='title' size='xLargeCircle' type='yellow' />
         </CirclesWrapper>
+        <CirclesWrapper>
+          <CircleComponent
+            percentage={98}
+            text='title'
+            size='xSmallCircle'
+            type='darkOrange'
+          />
+          <CircleComponent
+            percentage={98}
+            text='title'
+            size='xSmallCircle'
+            type='darkPurple'
+          />
+          <CircleComponent
+            percentage={10}
+            text='title'
+            size='xSmallCircle'
+            type='darkBlue'
+          />
+          <CircleComponent
+            percentage={20}
+            text='title'
+            size='xSmallCircle'
+            type='darkYellow'
+          />
+        </CirclesWrapper>
+        <p>smallCircle</p>
+        <CirclesWrapper>
+          <CircleComponent text='title' size='smallCircle' type='darkOrange' />
+          <CircleComponent text='title' size='smallCircle' type='darkPurple' />
+          <CircleComponent text='title' size='smallCircle' type='darkBlue' />
+          <CircleComponent text='title' size='smallCircle' type='darkYellow' />
+        </CirclesWrapper>
+        <p>largeCircle</p>
+        <CirclesWrapper>
+          <CircleComponent text='title' size='largeCircle' type='darkOrange' />
+          <CircleComponent text='title' size='largeCircle' type='darkPurple' />
+          <CircleComponent text='title' size='largeCircle' type='darkBlue' />
+          <CircleComponent text='title' size='largeCircle' type='darkYellow' />
+        </CirclesWrapper>
+        <p>xLargeCircle</p>
+        <CirclesWrapper>
+          <CircleComponent text='title' size='xLargeCircle' type='darkOrange' />
+          <CircleComponent text='title' size='xLargeCircle' type='darkPurple' />
+          <CircleComponent text='title' size='xLargeCircle' type='darkBlue' />
+          <CircleComponent text='title' size='xLargeCircle' type='darkYellow' />
+        </CirclesWrapper>
       </div>
+      <p>test 123123123</p>
+      <p></p>
+      <p></p>
     </React.Fragment>
   );
 };
@@ -77,7 +124,7 @@ const ComponentsPage = (props: unknown) => {
 const CirclesWrapper = styled.div`
   display: flex;
   justify-content: space-around;
-  margin-top: 20px;
+  margin-top: 50px;
 `;
 
 export { ComponentsPage };
