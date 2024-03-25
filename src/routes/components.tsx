@@ -20,27 +20,26 @@ const ComponentsPage = (props: unknown) => {
         <p>xSmallCircle</p>
         <CirclesWrapper>
           <CircleComponent
-            percentage={20}
             text='title'
-            title='title 100%'
+            title='title true'
             size='xSmallCircle'
             type='orange'
           />
           <CircleComponent
-            percentage={20}
             text='title'
+            title='title'
             size='xSmallCircle'
             type='purple'
           />
           <CircleComponent
-            percentage={20}
             text='title'
+            title='title'
             size='xSmallCircle'
             type='blue'
           />
           <CircleComponent
-            percentage={20}
             text='title'
+            title='title'
             size='xSmallCircle'
             type='yellow'
           />
@@ -70,23 +69,27 @@ const ComponentsPage = (props: unknown) => {
           <CircleComponent
             percentage={98}
             text='title'
+            title='title 98%'
             size='xSmallCircle'
             type='darkOrange'
           />
           <CircleComponent
-            percentage={98}
+            percentage={65}
             text='title'
+            title='title 65%'
             size='xSmallCircle'
             type='darkPurple'
           />
           <CircleComponent
             percentage={10}
+            title='title 10%'
             text='title'
             size='xSmallCircle'
             type='darkBlue'
           />
           <CircleComponent
-            percentage={20}
+            percentage={10}
+            title='title 10%'
             text='title'
             size='xSmallCircle'
             type='darkYellow'
