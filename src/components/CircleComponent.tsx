@@ -1,5 +1,3 @@
-import { log } from 'console';
-import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { noSelect } from '../styles/misc';
 
@@ -104,17 +102,7 @@ const CircleLayer = styled.div<{
     if ($type === 'darkBlue') return theme.colors.blue700;
     if ($type === 'darkYellow') return theme.colors.yellow700;
   }};
-  border: 1px solid
-    ${({ $type, theme, $percentage }) => {
-      if ($type === 'orange' || $type === 'darkOrange')
-        return $percentage ? 'transparent' : theme.colors.orange500_40;
-      if ($type === 'purple' || $type === 'darkPurple')
-        return $percentage ? 'transparent' : theme.colors.purple300_40;
-      if ($type === 'blue' || $type === 'darkBlue')
-        return $percentage ? 'transparent' : theme.colors.blue300_40;
-      if ($type === 'yellow' || $type === 'darkYellow')
-        return $percentage ? 'transparent' : theme.colors.yellow300_40;
-    }};
+
   transition: all 0.1s ease-in-out;
   z-index: 5;
   &:hover {

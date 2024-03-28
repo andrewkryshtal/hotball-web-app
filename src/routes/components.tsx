@@ -1,8 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CircleComponent } from '../components/CircleComponent';
-import styled, { ThemeProvider } from 'styled-components';
-import { theme } from '../theme/theme';
+import styled from 'styled-components';
 
 const ComponentsPage = (props: unknown) => {
   const navigation = useNavigate();
