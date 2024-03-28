@@ -1,6 +1,6 @@
 import styled, { ThemeProvider } from 'styled-components';
 import { StyledLink } from './components/testLink.style';
-import { theme, Ttheme } from './theme/theme';
+import { theme } from './theme/theme';
 
 function App() {
   return (
