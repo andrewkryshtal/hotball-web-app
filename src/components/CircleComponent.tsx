@@ -15,6 +15,7 @@ type TCircle = {
   text: string;
   title?: string;
   percentage?: number;
+  className?: string;
   onClick?: () => void;
 };
 
@@ -23,14 +24,19 @@ export const CircleComponent = ({
   type = 'orange',
   text,
   title,
+  className,
   percentage,
   onClick = () => console.log('click'),
 }: TCircle) => {
   return (
     // TODO: wrap component in a styled-component
-    <div style={{ position: 'relative' }}>
+    <div className={className} style={{ position: 'relative' }}>
       <ShadowLayer $size={size} />
-      {title && <TitleSection $type={type}>{title}</TitleSection>}
+      {title && (
+        <TitleSection $size={size} $type={type}>
+          {title}
+        </TitleSection>
+      )}
       <CircleLayer
         onClick={onClick}
         $size={size}
@@ -65,7 +71,12 @@ const ShadowLayer = styled.div<{ $size: TCircle['size'] }>`
   height: ${({ $size, theme }) => theme.sizes[$size] + 'px'};
   background: linear-gradient(90deg, #000000 -50%, rgba(25, 26, 28, 0) 100%);
   transform: rotate(45deg);
-  left: 25%;
+  left: ${({ $size }) => {
+    if ($size === 'xSmallCircle') return '1.4%';
+    if ($size === 'smallCircle') return '1.7%';
+    if ($size === 'largeCircle') return '2%';
+    if ($size === 'xLargeCircle') return '2%';
+  }};
   top: ${({ $size }) => {
     if ($size === 'xSmallCircle') return '62%';
     if ($size === 'smallCircle') return '57%';
@@ -138,7 +149,10 @@ const Text = styled.p<{ $type: TCircle['type']; $percentage?: number | null }>`
   z-index: 3;
 `;
 
-const TitleSection = styled.p<{ $type: TCircle['type'] }>`
+const TitleSection = styled.p<{
+  $type: TCircle['type'];
+  $size: TCircle['size'];
+}>`
   display: inline;
   position: absolute;
   min-width: 95px;
@@ -146,7 +160,12 @@ const TitleSection = styled.p<{ $type: TCircle['type'] }>`
   background-color: #fff;
   color: #000;
   top: -20%;
-  left: 50%;
+  left: ${({ $size }) => {
+    if ($size === 'xSmallCircle') return '3%';
+    if ($size === 'smallCircle') return '3.2%';
+    if ($size === 'largeCircle') return '4%';
+    if ($size === 'xLargeCircle') return '4.1%';
+  }};
   transform: translate(-50%, -50%);
   padding: 5px;
   width: fit-content;

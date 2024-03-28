@@ -4,6 +4,10 @@ export type Ttheme = typeof theme;
 
 export const theme = {
   colors: {
+    submitButton: '#191A1C',
+    transparent: 'transparent',
+    white: '#FFFFFF',
+    white_70: hexToRGBA('#FFFFFF', 0.7),
     orange300: '#FF672D',
     orange500: '#FF5215',
     orange500_40: hexToRGBA('#FF5215', 0.4),
