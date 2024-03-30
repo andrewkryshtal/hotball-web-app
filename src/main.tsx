@@ -4,7 +4,7 @@ import App from './App';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { ComponentsPage } from './routes/components';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
-import { theme } from './theme/theme';
+import { Theme } from './theme/theme';
 import reset from 'styled-reset';
 
 const root = ReactDOM.createRoot(
@@ -43,7 +43,7 @@ const router = createBrowserRouter([
 root.render(
   <React.StrictMode>
     <GlobalStyle />
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={Theme}>
       <RouterProvider router={router} />
     </ThemeProvider>
   </React.StrictMode>,

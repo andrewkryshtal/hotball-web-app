@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { CircleComponent } from '../components/CircleComponent';
 import styled from 'styled-components';
 import { CustomInput } from '../components/CustomInput';
-import { theme } from '../theme/theme';
 
 const ComponentsPage = (props: unknown) => {
   const navigation = useNavigate();
@@ -67,7 +66,6 @@ const ComponentsPage = (props: unknown) => {
         style={{
           width: '300px',
           marginLeft: '15px',
-          backgroundColor: theme.colors.blue300_40,
           height: '100px',
           display: 'flex',
           justifyContent: 'center',

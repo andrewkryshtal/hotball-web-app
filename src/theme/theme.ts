@@ -1,12 +1,18 @@
 import { hexToRGBA } from '../helpers';
 
-export type Ttheme = typeof theme;
+export type Ttheme = typeof Theme;
 
-export const theme = {
+export const Theme = {
   colors: {
+    //occasion-related
+    backgroundDisabled: hexToRGBA('#8BB8D9', 0.08),
     submitButton: '#191A1C',
+    secondaryText: '#A8BED1',
+    systemError: '#FF3F2E',
+    //color-related
     transparent: 'transparent',
     white: '#FFFFFF',
+    white_40: hexToRGBA('#FFFFFF', 0.4),
     white_70: hexToRGBA('#FFFFFF', 0.7),
     orange300: '#FF672D',
     orange500: '#FF5215',
