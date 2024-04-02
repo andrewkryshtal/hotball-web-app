@@ -12,43 +12,53 @@ type CustomInputProps = {
   value?: string;
   showSubmitBtn?: boolean;
   disabled?: boolean;
-  onChange?: () => void;
+  className?: string;
+  children?: React.ReactNode;
+  onClickCircleHandler?: () => void;
+  onChange?: (e: unknown) => void;
 };
 
 export const CustomInput = ({
   placeholder = 'Enter text',
-  additionalText = 'test text',
-  disabledSubmitButton = true,
+  additionalText,
+  disabledSubmitButton,
   error,
   type,
   value,
-  showSubmitBtn = true,
-  disabled = false,
+  showSubmitBtn,
+  disabled,
+  className,
+  children,
+  onClickCircleHandler,
   onChange,
 }: CustomInputProps) => {
   const ref = useRef<HTMLInputElement>(null);
-  const onClickHandler = useCallback(() => {
-    console.log('testBtn');
-  }, []);
+
+  //TODO: refactor this function and pass ref from outside
   const onFileUploadClick = useCallback(() => {
     if (type === 'file' && ref?.current && !disabled) {
       ref.current.click();
     }
   }, [type, ref]);
   return (
-    <InputWrapper type={type}>
+    <InputWrapper className={className} type={type}>
       {type === 'file' && (
-        <input type='file' ref={ref} style={{ display: 'none' }} />
+        <input
+          type='file'
+          onChange={onChange}
+          ref={ref}
+          style={{ display: 'none' }}
+        />
       )}
       {type !== 'file' && showSubmitBtn && (
         <SubmitButton
           disabled={disabledSubmitButton}
-          onClick={!disabledSubmitButton ? onClickHandler : () => {}}
+          onClick={!disabledSubmitButton ? onClickCircleHandler : () => {}}
         >
           <ArrowUpStyled disabled={disabledSubmitButton} />
         </SubmitButton>
       )}
-      {type === 'file' ? (
+      {type === 'file' && !children && (
         <StyledFileInput
           error={error}
           disabled={disabled}
@@ -56,7 +66,8 @@ export const CustomInput = ({
         >
           <FileInputText disabled={disabled}>Add File URL</FileInputText>
         </StyledFileInput>
-      ) : (
+      )}
+      {type !== 'file' && (
         <StyledInput
           value={value}
           error={error}
@@ -66,6 +77,7 @@ export const CustomInput = ({
           disabled={disabled}
         />
       )}
+      {type === 'file' && children && children}
 
       {additionalText && !error && (
         <AdditionalText disabled={disabled} error={error}>
@@ -169,7 +181,7 @@ const StyledFileInput = styled.div<{
 const FileInputText = styled.p<{ disabled: CustomInputProps['disabled'] }>`
   ${noSelect}
   color: ${({ theme, disabled }) =>
-    disabled ? theme.colors.buttonDisabled : theme.colors.white};
+    disabled ? theme.colors.buttonDisabled : theme.colors.white_70};
 `;
 
 const AdditionalText = styled.p<{

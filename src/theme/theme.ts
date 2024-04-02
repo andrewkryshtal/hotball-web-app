@@ -12,6 +12,10 @@ export const Theme = {
     systemError: '#FF3F2E',
     outlineText: '#4C5964',
     folderCardBg: '#093B4B',
+    asanaTwitterCardBg: '#2E2E30',
+    linkedInCardBg: '#2867B2',
+    slackCardBg: '#510F4E',
+    discordCardBg: '#5865F2',
     textPrimary: '#FFFFFF',
     //color-related
     transparent: 'transparent',

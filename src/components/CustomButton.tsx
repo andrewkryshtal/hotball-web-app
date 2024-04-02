@@ -5,7 +5,7 @@ type TCustomButton = {
   children: React.ReactNode;
   className?: string;
   type: 'secondary' | 'outline';
-  onClickHandler: () => void;
+  onClickHandler: (e: unknown) => void;
 };
 
 export const CustomButton = ({

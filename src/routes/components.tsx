@@ -5,6 +5,15 @@ import styled from 'styled-components';
 import { CustomInput } from '../components/CustomInput';
 import { CustomButton } from '../components/CustomButton';
 import { CardComponent } from '../components/CardComponent';
+import FolderIcon from '../assets/FolderIcon.svg?react';
+import LinkIcon from '../assets/LinkIcon.svg?react';
+import AsanaIcon from '../assets/AsanaIcon.svg?react';
+import LinkedinIcon from '../assets/LinkedinIcon.svg?react';
+import NotionIcon from '../assets/NotionIcon.svg?react';
+import TwitterIcon from '../assets/TwitterIcon.svg?react';
+import SlackIcon from '../assets/SlackIcon.svg?react';
+import DiscordIcon from '../assets/DiscordIcon.svg?react';
+import { Theme } from '../theme/theme';
 
 const ComponentsPage = () => {
   const navigation = useNavigate();
@@ -82,16 +91,86 @@ const ComponentsPage = () => {
       </CustomButton>
       <br />
       <br />
-      <CardComponent
-        text='test text for Files card, lets see how it looks like'
-        type='folder'
-      />
+      <CardContainer>
+        <CardComponent
+          Icon={FolderIcon}
+          text='test text for Files card, lets see how it looks like'
+          buttonText='upload'
+          backgroundColor={Theme.colors.folderCardBg}
+          onClickHandler={() => console.log('click')}
+        />
+        <CardComponent
+          Icon={LinkIcon}
+          title='URL'
+          text='test text for Files card, lets see how it looks like'
+          type='url'
+          buttonText='upload'
+          backgroundColor={Theme.colors.orange700}
+          onClickHandler={() => console.log('click')}
+        />
+        <CardComponent
+          Icon={AsanaIcon}
+          title='Asana'
+          text='test text for Files card, lets see how it looks like'
+          buttonText='upload'
+          backgroundColor={Theme.colors.asanaTwitterCardBg}
+          onClickHandler={() => console.log('click')}
+        />
+        <CardComponent
+          Icon={LinkedinIcon}
+          title='Asana'
+          text='test text for Files card, lets see how it looks like'
+          buttonText='upload'
+          backgroundColor={Theme.colors.linkedInCardBg}
+          onClickHandler={() => console.log('click')}
+        />
+        <CardComponent
+          Icon={NotionIcon}
+          title='Asana'
+          text='test text for Files card, lets see how it looks like'
+          buttonText='upload'
+          backgroundColor={Theme.colors.white}
+          onClickHandler={() => console.log('click')}
+        />
+        <CardComponent
+          Icon={TwitterIcon}
+          title='Asana'
+          text='test text for Files card, lets see how it looks like'
+          buttonText='upload'
+          backgroundColor={Theme.colors.asanaTwitterCardBg}
+          onClickHandler={() => console.log('click')}
+        />
+        <CardComponent
+          Icon={SlackIcon}
+          title='Asana'
+          text='test text for Files card, lets see how it looks like'
+          buttonText='upload'
+          backgroundColor={Theme.colors.slackCardBg}
+          onClickHandler={() => console.log('click')}
+        />
+        <CardComponent
+          Icon={DiscordIcon}
+          title='Asana'
+          text='test text for Files card, lets see how it looks like'
+          buttonText='upload'
+          backgroundColor={Theme.colors.discordCardBg}
+          onClickHandler={() => console.log('click')}
+        />
+      </CardContainer>
     </React.Fragment>
   );
 };
 
 const StyledCircle = styled(CircleComponent)`
   margin-left: 20px;
+`;
+
+const CardContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  flex-direction: row;
+  justify-content: space-around;
 `;
 
 export { ComponentsPage };
