@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { CircleComponent } from '../components/CircleComponent';
 import styled from 'styled-components';
 import { CustomInput } from '../components/CustomInput';
+import { CustomButton } from '../components/CustomButton';
 
-const ComponentsPage = (props: unknown) => {
+const ComponentsPage = () => {
   const navigation = useNavigate();
   const goBack = () => {
     navigation(-1);
@@ -74,6 +75,8 @@ const ComponentsPage = (props: unknown) => {
       >
         <CustomInput />
       </div>
+      <br />
+      <CustomButton>connect</CustomButton>
     </React.Fragment>
   );
 };

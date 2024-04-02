@@ -11,17 +11,19 @@ type CustomInputProps = {
   type?: string;
   value?: string;
   showSubmitBtn?: boolean;
+  disabled?: boolean;
   onChange?: () => void;
 };
 
 export const CustomInput = ({
   placeholder = 'Enter text',
   additionalText = 'test text',
-  disabledSubmitButton = false,
+  disabledSubmitButton = true,
   error,
   type,
   value,
-  showSubmitBtn = false,
+  showSubmitBtn = true,
+  disabled = false,
   onChange,
 }: CustomInputProps) => {
   const ref = useRef<HTMLInputElement>(null);
@@ -29,12 +31,8 @@ export const CustomInput = ({
     console.log('testBtn');
   }, []);
   const onFileUploadClick = useCallback(() => {
-    console.log('test');
-
-    if (type === 'file' && ref?.current) {
+    if (type === 'file' && ref?.current && !disabled) {
       ref.current.click();
-    } else {
-      () => {};
     }
   }, [type, ref]);
   return (
@@ -51,22 +49,28 @@ export const CustomInput = ({
         </SubmitButton>
       )}
       {type === 'file' ? (
-        <StyledFileInput error={error} onClick={onFileUploadClick}>
-          <FileInputText>Add File URL</FileInputText>
+        <StyledFileInput
+          error={error}
+          disabled={disabled}
+          onClick={onFileUploadClick}
+        >
+          <FileInputText disabled={disabled}>Add File URL</FileInputText>
         </StyledFileInput>
       ) : (
         <StyledInput
           value={value}
-          disabled={!!type}
           error={error}
           onChange={onChange}
           placeholder={placeholder}
           type='text'
+          disabled={disabled}
         />
       )}
 
       {additionalText && !error && (
-        <AdditionalText error={error}>{additionalText}</AdditionalText>
+        <AdditionalText disabled={disabled} error={error}>
+          {additionalText}
+        </AdditionalText>
       )}
       {error && <AdditionalText error={error}>{error}</AdditionalText>}
     </InputWrapper>
@@ -101,20 +105,30 @@ const ArrowUpStyled = styled(ArrowUp)<{
     disabled ? theme.colors.white_40 : theme.colors.white};
 `;
 
-const StyledInput = styled.input<{ error: CustomInputProps['error'] }>`
+const StyledInput = styled.input<{
+  error: CustomInputProps['error'];
+  disabled: CustomInputProps['disabled'];
+}>`
   width: 100%;
   height: 48px;
   border: 1px solid
-    ${({ theme, error }) =>
-      error && error.length > 0
-        ? theme.colors.systemError
-        : theme.colors.white_70};
+    ${({ theme, error, disabled }) => {
+      if (error && error.length > 0) {
+        return theme.colors.systemError;
+      } else if (disabled) {
+        return theme.colors.buttonDisabled;
+      } else if (!error) {
+        return theme.colors.white_70;
+      }
+    }};
   border-radius: 200px;
   background-color: ${({ theme }) => theme.colors.transparent};
   font-family: 'MartianMono';
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme, disabled }) =>
+    !disabled ? theme.colors.white : theme.colors.buttonDisabled};
   &::placeholder {
-    color: ${({ theme }) => theme.colors.white_70};
+    color: ${({ theme, disabled }) =>
+      !disabled ? theme.colors.white : theme.colors.buttonDisabled};
   }
   &:focus {
     outline: none;
@@ -122,7 +136,10 @@ const StyledInput = styled.input<{ error: CustomInputProps['error'] }>`
   padding: 0 50px 0 20px;
 `;
 
-const StyledFileInput = styled.div<{ error: CustomInputProps['error'] }>`
+const StyledFileInput = styled.div<{
+  error: CustomInputProps['error'];
+  disabled: CustomInputProps['disabled'];
+}>`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -130,34 +147,44 @@ const StyledFileInput = styled.div<{ error: CustomInputProps['error'] }>`
   width: 100%;
   height: 48px;
   border: 1px solid
-    ${({ theme, error }) =>
-      error && error.length > 0
-        ? theme.colors.systemError
-        : theme.colors.white_70};
+    ${({ theme, error, disabled }) => {
+      if (error && error.length > 0) {
+        return theme.colors.systemError;
+      } else if (disabled) {
+        return theme.colors.buttonDisabled;
+      } else if (!error) {
+        return theme.colors.white_70;
+      }
+    }};
   border-radius: 200px;
   background-color: ${({ theme }) => theme.colors.transparent};
   font-family: 'MartianMono';
   font-size: 11px;
   font-weight: 300;
-  color: ${({ theme }) => theme.colors.white};
-  &::placeholder {
-    color: ${({ theme }) => theme.colors.white_70};
-  }
-  &:focus {
-    outline: none;
-  }
+  color: ${({ theme, disabled }) =>
+    !disabled ? theme.colors.white : theme.colors.buttonDisabled};
   padding: 0 50px 0 20px;
 `;
 
-const FileInputText = styled.p`
+const FileInputText = styled.p<{ disabled: CustomInputProps['disabled'] }>`
   ${noSelect}
+  color: ${({ theme, disabled }) =>
+    disabled ? theme.colors.buttonDisabled : theme.colors.white};
 `;
 
-const AdditionalText = styled.p<{ error: CustomInputProps['error'] }>`
-  color: ${({ theme, error }) =>
-    error && error.length > 0
-      ? theme.colors.systemError
-      : theme.colors.secondaryText};
+const AdditionalText = styled.p<{
+  error: CustomInputProps['error'];
+  disabled?: CustomInputProps['disabled'];
+}>`
+  color: ${({ theme, error, disabled }) => {
+    if (error && error.length > 0) {
+      return theme.colors.systemError;
+    } else if (disabled) {
+      return theme.colors.buttonDisabled;
+    } else if (!error) {
+      return theme.colors.secondaryText;
+    }
+  }};
   font-size: 11px;
   font-family: 'MartianMono';
   padding-left: 20px;

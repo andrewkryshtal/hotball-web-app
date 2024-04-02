@@ -6,9 +6,11 @@ export const Theme = {
   colors: {
     //occasion-related
     backgroundDisabled: hexToRGBA('#8BB8D9', 0.08),
+    buttonDisabled: hexToRGBA('#8BB8D9', 0.2),
     submitButton: '#191A1C',
     secondaryText: '#A8BED1',
     systemError: '#FF3F2E',
+    outlineText: '#4C5964',
     //color-related
     transparent: 'transparent',
     white: '#FFFFFF',
