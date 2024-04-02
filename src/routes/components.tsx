@@ -4,6 +4,7 @@ import { CircleComponent } from '../components/CircleComponent';
 import styled from 'styled-components';
 import { CustomInput } from '../components/CustomInput';
 import { CustomButton } from '../components/CustomButton';
+import { CardComponent } from '../components/CardComponent';
 
 const ComponentsPage = () => {
   const navigation = useNavigate();
@@ -76,7 +77,15 @@ const ComponentsPage = () => {
         <CustomInput />
       </div>
       <br />
-      <CustomButton>connect</CustomButton>
+      <CustomButton type='secondary' onClickHandler={() => console.log('test')}>
+        connect
+      </CustomButton>
+      <br />
+      <br />
+      <CardComponent
+        text='test text for Files card, lets see how it looks like'
+        type='folder'
+      />
     </React.Fragment>
   );
 };

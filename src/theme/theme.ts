@@ -11,6 +11,8 @@ export const Theme = {
     secondaryText: '#A8BED1',
     systemError: '#FF3F2E',
     outlineText: '#4C5964',
+    folderCardBg: '#093B4B',
+    textPrimary: '#FFFFFF',
     //color-related
     transparent: 'transparent',
     white: '#FFFFFF',
@@ -40,6 +42,8 @@ export const Theme = {
     yellow600: '#4A511A',
     yellow700: '#363E00',
     yellow700_40: hexToRGBA('#363E00', 0.4),
+    grey_100: hexToRGBA('#FFFFFF', 0.5),
+    grey_800: '#191A1C',
   },
   fonts: {},
   sizes: {

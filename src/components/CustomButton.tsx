@@ -3,17 +3,19 @@ import { noSelect } from '../styles/misc';
 
 type TCustomButton = {
   children: React.ReactNode;
+  className?: string;
   type: 'secondary' | 'outline';
   onClickHandler: () => void;
 };
 
 export const CustomButton = ({
   children,
+  className,
   type = 'secondary',
   onClickHandler,
 }: TCustomButton): React.ReactNode => {
   return (
-    <ButtonWrapper onClick={onClickHandler} type={type}>
+    <ButtonWrapper className={className} onClick={onClickHandler} type={type}>
       <ButtonText>{children}</ButtonText>
     </ButtonWrapper>
   );
