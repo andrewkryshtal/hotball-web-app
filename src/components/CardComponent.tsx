@@ -51,6 +51,7 @@ const CustomWrapper = styled.div<{
   width: 250px;
   border-radius: 28px;
   background-color: ${({ backgroundColor }) => backgroundColor};
+  transition: all 0.1s ease-in-out;
   & .innerTitle {
     font-size: 14px;
     font-family: 'MartianMono';
@@ -68,6 +69,9 @@ const CustomWrapper = styled.div<{
       backgroundColor !== theme.colors.white
         ? theme.colors.grey_100
         : theme.colors.grey_800};
+  }
+  &:hover {
+    transform: scale(1.01);
   }
 `;
 

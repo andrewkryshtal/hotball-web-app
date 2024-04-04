@@ -1,19 +1,26 @@
-import styled, { ThemeProvider } from 'styled-components';
-import { StyledLink } from './components/testLink.style';
-import { Theme } from './theme/theme';
+import { useEffect } from 'react';
+import { Preloader } from './components/Preloader';
+import { useBoundStore } from './store/store';
+import { loginSelectors } from './store/loginSelectors';
+import { redirect, useNavigate } from 'react-router-dom';
 
-function App() {
+const App = () => {
+  const navigate = useNavigate();
+  const { login, password } = useBoundStore(loginSelectors);
+
+  useEffect(() => {
+    console.log({ login, password });
+    if (!login) {
+      console.log(!login);
+      navigate('/login'); // redirect to /login
+    }
+  }, [navigate]);
+
   return (
-    <ThemeProvider theme={Theme}>
-      <Container className='App'>
-        <StyledLink to='components'>Go to components page</StyledLink>
-      </Container>
-    </ThemeProvider>
+    <div>
+      <Preloader />
+    </div>
   );
-}
-
-const Container = styled.div`
-  margin: 0 15px;
-`;
+};
 
 export default App;

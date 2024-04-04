@@ -83,7 +83,7 @@ const ComponentsPage = () => {
           alignItems: 'center',
         }}
       >
-        <CustomInput />
+        <CustomInput type='file' />
       </div>
       <br />
       <CustomButton type='secondary' onClickHandler={() => console.log('test')}>

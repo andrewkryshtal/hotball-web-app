@@ -2,10 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { ComponentsPage } from './routes/components';
+import { ComponentsPage } from './routes/components'; // Fix the casing of the import statement
+
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import { Theme } from './theme/theme';
 import reset from 'styled-reset';
+import { LoginPage } from './routes/loginPage';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -33,6 +35,10 @@ const router = createBrowserRouter([
     path: '/',
     element: <App />,
     errorElement: <div>404 Not Found</div>,
+  },
+  {
+    path: '/login',
+    element: <LoginPage />,
   },
   {
     path: '/components',
