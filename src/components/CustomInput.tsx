@@ -1,4 +1,4 @@
-import { useCallback, useRef } from 'react';
+import { Dispatch, SetStateAction, useCallback, useRef } from 'react';
 import styled from 'styled-components';
 import ArrowUp from '../assets/ArrowUp.svg?react';
 import { noSelect } from '../styles/misc';
@@ -13,9 +13,8 @@ type CustomInputProps = {
   showSubmitBtn?: boolean;
   disabled?: boolean;
   className?: string;
-  children?: React.ReactNode;
   onClickCircleHandler?: () => void;
-  onChange?: (e: unknown) => void;
+  onChange?: Dispatch<SetStateAction<string>>;
 };
 
 export const CustomInput = ({
@@ -28,12 +27,14 @@ export const CustomInput = ({
   showSubmitBtn,
   disabled,
   className,
-  children,
   onClickCircleHandler,
   onChange,
 }: CustomInputProps) => {
   const ref = useRef<HTMLInputElement>(null);
-
+  let trimmedError;
+  if (error && error.length > 0) {
+    trimmedError = error?.substring(0, 25) + '...';
+  }
   //TODO: refactor this function and pass ref from outside
   const onFileUploadClick = useCallback(() => {
     if (type === 'file' && ref?.current && !disabled) {
@@ -45,7 +46,7 @@ export const CustomInput = ({
       {type === 'file' && (
         <input
           type='file'
-          onChange={onChange}
+          onChange={onChange as () => void}
           ref={ref}
           style={{ display: 'none' }}
         />
@@ -58,7 +59,7 @@ export const CustomInput = ({
           <ArrowUpStyled disabled={disabledSubmitButton} />
         </SubmitButton>
       )}
-      {type === 'file' && !children && (
+      {type === 'file' && (
         <StyledFileInput
           error={error}
           disabled={disabled}
@@ -71,20 +72,18 @@ export const CustomInput = ({
         <StyledInput
           value={value}
           error={error}
-          onChange={onChange}
+          onChange={(e) => onChange && onChange(e.target.value)}
           placeholder={placeholder}
-          type='text'
+          type={type}
           disabled={disabled}
         />
       )}
-      {type === 'file' && children && children}
-
       {additionalText && !error && (
         <AdditionalText disabled={disabled} error={error}>
           {additionalText}
         </AdditionalText>
       )}
-      {error && <AdditionalText error={error}>{error}</AdditionalText>}
+      {error && <AdditionalText error={error}>{trimmedError}</AdditionalText>}
     </InputWrapper>
   );
 };
@@ -202,4 +201,6 @@ const AdditionalText = styled.p<{
   padding-left: 20px;
   padding-top: 5px;
   position: absolute;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `;

@@ -1,5 +1,6 @@
 import { TloginSlice } from './store';
 
-export const loginSelectors = (state: TloginSlice) => state.credentials;
+export const credentialsSelectors = (state: TloginSlice) => state.credentials;
 
-export const setCredentials = (state: TloginSlice) => state.setCredentials;
+export const setCredentialsSelector = (state: TloginSlice) =>
+  state.setCredentials;

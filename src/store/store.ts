@@ -12,14 +12,12 @@ export type TloginSlice = {
   }) => void;
 };
 
-// const myMiddlewares = (f) => devtools(persist(f, { name: 'boundStore' }));
-
 export const createLoginSlice: StateCreator<
   TloginSlice,
   [],
   [],
   TloginSlice
-> = (set, get) => ({
+> = (set) => ({
   credentials: { login: '', password: '' },
   setCredentials: (params) =>
     set((state) => ({
