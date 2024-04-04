@@ -17,6 +17,7 @@ const App = () => {
 
   return (
     <div>
+      <h1 style={{ color: 'white', fontSize: '30px' }}>ЗАЛОГИНИЛСЯ</h1>
       <Preloader />
     </div>
   );

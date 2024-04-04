@@ -3,9 +3,11 @@ import { CustomInput } from '../components/CustomInput';
 import styled from 'styled-components';
 import { useBoundStore } from '../store/store';
 import { setCredentialsSelector } from '../store/loginSelectors';
-import { apiInstance } from '../api/apiConfig';
+import { useNavigate } from 'react-router-dom';
+import { loginApi } from '../api/authApi';
 
 const LoginPage = () => {
+  const navigate = useNavigate();
   const [login, setLogin] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<string>('');
@@ -14,10 +16,13 @@ const LoginPage = () => {
 
   const onLoginHandler = useCallback(() => {
     setCredentials({ login, password });
-    apiInstance
-      .get('/v1/admin/ping')
-      .then((res) => console.log(res))
-      .catch((err) => setError(err.message));
+    try {
+      loginApi();
+      navigate('/');
+    } catch (e) {
+      setError((e as Error).message);
+    }
+    loginApi();
   }, [login, password]);
 
   return (
