@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { CustomInput } from '../components/CustomInput';
 import styled from 'styled-components';
 import { useBoundStore } from '../store/store';
