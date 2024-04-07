@@ -16,13 +16,13 @@ const LoginPage = () => {
 
   const onLoginHandler = useCallback(() => {
     setCredentials({ login, password });
-    try {
-      loginApi();
-      navigate('/');
-    } catch (e) {
-      setError((e as Error).message);
-    }
-    loginApi();
+    loginApi()
+      .then(() => {
+        navigate('/');
+      })
+      .catch((e) => {
+        setError(e.message);
+      });
   }, [login, password]);
 
   return (
