@@ -1,4 +1,4 @@
-import { TloginSlice } from './store';
+import { TloginSlice } from './loginSlice';
 
 export const credentialsSelectors = (state: TloginSlice) => state.credentials;
 

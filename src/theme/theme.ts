@@ -5,8 +5,10 @@ export type Ttheme = typeof Theme;
 export const Theme = {
   colors: {
     //occasion-related
+    mainBackground: '#222C35',
     backgroundDisabled: hexToRGBA('#8BB8D9', 0.08),
     buttonDisabled: hexToRGBA('#8BB8D9', 0.2),
+    threeCirclesButtonBgColor: hexToRGBA('#8BB8D9', 0.03),
     submitButton: '#191A1C',
     secondaryText: '#A8BED1',
     systemError: '#FF3F2E',
@@ -17,10 +19,13 @@ export const Theme = {
     slackCardBg: '#510F4E',
     discordCardBg: '#5865F2',
     textPrimary: '#FFFFFF',
+    textTertiary: '#4C5964',
     //color-related
     transparent: 'transparent',
+    black: '#000000',
     white: '#FFFFFF',
     white_40: hexToRGBA('#FFFFFF', 0.4),
+    white_60: hexToRGBA('#FFFFFF', 0.6),
     white_70: hexToRGBA('#FFFFFF', 0.7),
     orange300: '#FF672D',
     orange500: '#FF5215',

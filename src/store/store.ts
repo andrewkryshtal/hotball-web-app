@@ -1,40 +1,22 @@
-import { StateCreator, create } from 'zustand';
+import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
-
-export type TloginSlice = {
-  credentials: Record<string, string>;
-  setCredentials: ({
-    login,
-    password,
-  }: {
-    login: string;
-    password: string;
-  }) => void;
-};
-
-export const createLoginSlice: StateCreator<
-  TloginSlice,
-  [],
-  [],
-  TloginSlice
-> = (set) => ({
-  credentials: { login: '', password: '' },
-  setCredentials: (params) =>
-    set((state) => ({
-      credentials: {
-        login: params.login || state.credentials.login,
-        password: params.password || state.credentials.password,
-      },
-    })),
-});
+import { TloginSlice, createLoginSlice } from './login/loginSlice';
+import {
+  TdocumentsDataSlice,
+  createDocumentsDataSlice,
+} from './documentsData/documentsDataSlice';
 
 export const useBoundStore = create<
-  TloginSlice,
-  [['zustand/persist', TloginSlice], ['zustand/devtools', never]]
+  TloginSlice & TdocumentsDataSlice,
+  [
+    ['zustand/persist', TloginSlice & TdocumentsDataSlice],
+    ['zustand/devtools', never],
+  ]
 >(
   persist(
     devtools((...a) => ({
       ...createLoginSlice(...a),
+      ...createDocumentsDataSlice(...a),
     })),
     { name: 'boundStore' },
   ),

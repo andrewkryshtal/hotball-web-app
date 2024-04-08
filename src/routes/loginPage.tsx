@@ -1,8 +1,11 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { CustomInput } from '../components/CustomInput';
 import styled from 'styled-components';
 import { useBoundStore } from '../store/store';
-import { setCredentialsSelector } from '../store/loginSelectors';
+import {
+  credentialsSelectors,
+  setCredentialsSelector,
+} from '../store/login/loginSelectors';
 import { useNavigate } from 'react-router-dom';
 import { loginApi } from '../api/authApi';
 
@@ -12,18 +15,30 @@ const LoginPage = () => {
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<string>('');
 
+  const credentials = useBoundStore(credentialsSelectors);
+
   const setCredentials = useBoundStore(setCredentialsSelector);
 
   const onLoginHandler = useCallback(() => {
-    setCredentials({ login, password });
+    setCredentials({ login, password, isLoggedIn: false });
     loginApi()
       .then(() => {
+        setCredentials({ login, password, isLoggedIn: true });
         navigate('/');
       })
       .catch((e) => {
         setError(e.message);
       });
   }, [login, password]);
+
+  useEffect(() => {
+    //redirect if user is already logged in
+    if (credentials.isLoggedIn) {
+      console.log('test');
+
+      navigate('/');
+    }
+  }, []);
 
   return (
     <Container>
