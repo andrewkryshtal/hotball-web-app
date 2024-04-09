@@ -33,12 +33,6 @@ export const UploadDocument = () => {
     };
   }, [window]);
 
-  const TooltipCustomComponent = () => (
-    <TooltipContainer>
-      <p>Press the button to make the magic</p>
-    </TooltipContainer>
-  );
-
   return (
     <div>
       <CirclesWrapperStyled>
