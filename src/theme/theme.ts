@@ -5,7 +5,9 @@ export type Ttheme = typeof Theme;
 export const Theme = {
   colors: {
     //occasion-related
-    mainBackground: '#222C35',
+    backgroundLight: '#222C35',
+    backgroundPopup: '#3A424A',
+    strokeSecondary: hexToRGBA('#8BB8D9', 0.2),
     backgroundDisabled: hexToRGBA('#8BB8D9', 0.08),
     buttonDisabled: hexToRGBA('#8BB8D9', 0.2),
     threeCirclesButtonBgColor: hexToRGBA('#8BB8D9', 0.03),

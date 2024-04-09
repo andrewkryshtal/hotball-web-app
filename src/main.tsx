@@ -24,7 +24,7 @@ const GlobalStyle = createGlobalStyle`
             box-sizing: border-box;
         }
         body {
-            background-color: #222C35;
+            background-color: #191A1C;
         }
         p {
             color: #fff;
