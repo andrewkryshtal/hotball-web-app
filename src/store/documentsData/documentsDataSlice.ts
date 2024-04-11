@@ -25,8 +25,9 @@ export const createDocumentsDataSlice: StateCreator<
     data: {} as string | boolean | Record<string, unknown>, // Specify the type of the `data` property
   },
   setDocumentsData: (params) =>
-    set(() => ({
+    set((state: TdocumentsDataSlice) => ({
       documentsData: {
+        ...state.documentsData,
         isDataProvided: params.isDataProvided,
         isDataProcessed: params.isDataProcessed,
         data: params.data,

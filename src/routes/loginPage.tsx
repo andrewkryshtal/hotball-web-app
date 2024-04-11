@@ -34,8 +34,6 @@ const LoginPage = () => {
   useEffect(() => {
     //redirect if user is already logged in
     if (credentials.isLoggedIn) {
-      console.log('test');
-
       navigate('/');
     }
   }, []);

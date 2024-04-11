@@ -19,7 +19,7 @@ export const CircleElement = styled.div`
 
 export const CirclesWrapper = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: flex-start;
   flex-wrap: wrap;
   height: 100%;

@@ -9,6 +9,8 @@ import reset from 'styled-reset';
 import { LoginPage } from './routes/loginPage';
 import { HomePage } from './routes/homePage';
 import { UploadDocument } from './routes/uploadDocument';
+import martianMono from './assets/fonts/martianMonoVariableFont.ttf';
+import formularRegular from './assets/fonts/formularRegular.otf';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -18,8 +20,12 @@ const GlobalStyle = createGlobalStyle`
         ${reset}
         @font-face {
             font-family: 'MartianMono';
-            src: url('./fonts/MartianMono-VariableFont.ttf') format('truetype');
+            src: url(${martianMono}) format('truetype');
           }
+        @font-face {
+            font-family: 'Formular Regular';
+            src: url(${formularRegular}) format('truetype');
+        }
         * {
             box-sizing: border-box;
         }

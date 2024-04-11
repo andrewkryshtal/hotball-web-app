@@ -5,11 +5,12 @@ import {
   TdocumentsDataSlice,
   createDocumentsDataSlice,
 } from './documentsData/documentsDataSlice';
+import { TcompanySlice, companiesDataSlice } from './company/companySlice';
 
 export const useBoundStore = create<
-  TloginSlice & TdocumentsDataSlice,
+  TloginSlice & TdocumentsDataSlice & TcompanySlice,
   [
-    ['zustand/persist', TloginSlice & TdocumentsDataSlice],
+    ['zustand/persist', TloginSlice & TdocumentsDataSlice & TcompanySlice],
     ['zustand/devtools', never],
   ]
 >(
@@ -17,6 +18,7 @@ export const useBoundStore = create<
     devtools((...a) => ({
       ...createLoginSlice(...a),
       ...createDocumentsDataSlice(...a),
+      ...companiesDataSlice(...a),
     })),
     { name: 'boundStore' },
   ),

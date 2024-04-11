@@ -1,5 +1,3 @@
 import { apiInstance } from './apiConfig';
 
-export const loginApi = () => {
-  return apiInstance().get('/v1/private/ping');
-};
+export const loginApi = () => apiInstance().get('/v1/private/ping');

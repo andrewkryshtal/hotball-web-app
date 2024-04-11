@@ -1,9 +1,10 @@
 import styled from 'styled-components';
-import { CircleElement } from '../styles/misc';
+import DownloadIcon from '../assets/DownloadIcon.svg?react';
 
 type TThreeCircledButton = {
   className?: string;
   id?: string;
+  onClick?: () => void;
 };
 
 export const ThreeCircledButton = ({
@@ -16,6 +17,10 @@ export const ThreeCircledButton = ({
         <OrangeCircleElement />
         <OrangeCircleElement />
         <OrangeCircleElement />
+        <TextIconWrapper>
+          <DownloadIcon />
+          <p>add data</p>
+        </TextIconWrapper>
       </CirclesWrapper>
     </>
   );
@@ -87,8 +92,19 @@ const OrangeCircleElement = styled.div`
   }
 `;
 
-const CircleElementOne = styled(CircleElement)`
+const TextIconWrapper = styled.div`
   position: absolute;
-  top: 50%;
-  right: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  left: 74px;
+  top: 25px;
+  z-index: 3;
+  & p {
+    color: ${({ theme }) => theme.colors.orange500};
+    font-family: 'MartianMono';
+    padding-top: 10px;
+    font-size: 14px;
+  }
 `;
