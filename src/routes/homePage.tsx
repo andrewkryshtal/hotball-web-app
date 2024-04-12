@@ -13,8 +13,7 @@ export const HomePage = () => {
   useEffect(() => {
     if (!isLoggedIn) {
       navigate('/login'); // redirect to /login
-    }
-    if (!isDataProvided) {
+    } else if (!isDataProvided) {
       navigate('/uploadDocument'); // redirect to /uploadDocument
     }
   }, [navigate]);
