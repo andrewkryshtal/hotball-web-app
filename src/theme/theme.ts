@@ -13,6 +13,7 @@ export const Theme = {
     threeCirclesButtonBgColor: hexToRGBA('#8BB8D9', 0.03),
     submitButton: '#191A1C',
     secondaryText: '#A8BED1',
+    secondaryText_50: hexToRGBA('#A8BED1', 0.5),
     systemError: '#FF3F2E',
     outlineText: '#4C5964',
     folderCardBg: '#093B4B',
@@ -55,6 +56,7 @@ export const Theme = {
     yellow700_40: hexToRGBA('#363E00', 0.4),
     grey_100: hexToRGBA('#FFFFFF', 0.5),
     grey_800: '#191A1C',
+    grey_800_80: hexToRGBA('#191A1C', 0.8),
   },
   fonts: {},
   sizes: {

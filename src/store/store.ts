@@ -8,9 +8,14 @@ import {
 import { TcompanySlice, companiesDataSlice } from './company/companySlice';
 
 export const useBoundStore = create<
-  TloginSlice & TdocumentsDataSlice & TcompanySlice,
+  TloginSlice & TdocumentsDataSlice & TcompanySlice & { _hasHydrated: boolean },
   [
-    ['zustand/persist', TloginSlice & TdocumentsDataSlice & TcompanySlice],
+    [
+      'zustand/persist',
+      TloginSlice &
+        TdocumentsDataSlice &
+        TcompanySlice & { _hasHydrated: boolean },
+    ],
     ['zustand/devtools', never],
   ]
 >(
@@ -19,7 +24,13 @@ export const useBoundStore = create<
       ...createLoginSlice(...a),
       ...createDocumentsDataSlice(...a),
       ...companiesDataSlice(...a),
+      _hasHydrated: false,
     })),
-    { name: 'boundStore' },
+    {
+      name: 'boundStore',
+      onRehydrateStorage: () => () => {
+        useBoundStore.setState({ _hasHydrated: true });
+      },
+    },
   ),
 );

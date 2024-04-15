@@ -1,16 +1,24 @@
 import { StateCreator } from 'zustand';
 
 export type TdocumentsDataSlice = {
-  documentsData: Record<string, string | boolean | Record<string, unknown>>;
+  documentsData: {
+    isDataProvided: boolean;
+    isDataProcessed: boolean;
+    loadingProgress: number;
+    data: Record<string, unknown>;
+  };
   setDocumentsData: ({
     isDataProvided, // boolean
     isDataProcessed, // boolean
+    loadingProgress, // number
     data,
   }: {
     isDataProvided: boolean;
     isDataProcessed: boolean;
+    loadingProgress?: number;
     data: Record<string, unknown>;
   }) => void;
+  setProgress: (progress: number) => void;
 };
 
 export const createDocumentsDataSlice: StateCreator<
@@ -22,7 +30,8 @@ export const createDocumentsDataSlice: StateCreator<
   documentsData: {
     isDataProvided: false,
     isDataProcessed: false,
-    data: {} as string | boolean | Record<string, unknown>, // Specify the type of the `data` property
+    loadingProgress: 0,
+    data: {},
   },
   setDocumentsData: (params) =>
     set((state: TdocumentsDataSlice) => ({
@@ -31,6 +40,13 @@ export const createDocumentsDataSlice: StateCreator<
         isDataProvided: params.isDataProvided,
         isDataProcessed: params.isDataProcessed,
         data: params.data,
+      },
+    })),
+  setProgress: (progress) =>
+    set((state: TdocumentsDataSlice) => ({
+      documentsData: {
+        ...state.documentsData,
+        loadingProgress: progress,
       },
     })),
 });

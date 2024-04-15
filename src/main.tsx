@@ -11,6 +11,8 @@ import { HomePage } from './routes/homePage';
 import { UploadDocument } from './routes/uploadDocument';
 import martianMono from './assets/fonts/martianMonoVariableFont.ttf';
 import formularRegular from './assets/fonts/formularRegular.otf';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -62,6 +64,18 @@ root.render(
     <GlobalStyle />
     <ThemeProvider theme={Theme}>
       <RouterProvider router={router} />
+      <ToastContainer
+        position='bottom-right'
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme='dark'
+      />
     </ThemeProvider>
   </React.StrictMode>,
 );

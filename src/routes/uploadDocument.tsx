@@ -12,11 +12,15 @@ import {
   companySetters,
   getCurrentCompanySelector,
 } from '../store/company/companySelectors';
+import { uploadResourceFile } from '../api/resourcesApi';
+import { toast } from 'react-toastify';
+import { CustomButton } from '../components/CustomButton';
 
 export const UploadDocument = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const { setAllCompanies, setCompany } = useBoundStore(companySetters);
   const { id: currentCompanyId } = useBoundStore(getCurrentCompanySelector);
+  const { setDocumentsData, documentsData } = useBoundStore((state) => state);
 
   const { circlesAmount } = useBgDots();
 
@@ -24,6 +28,10 @@ export const UploadDocument = () => {
 
   // added company register logic for file upload
   const onClickHandler = useCallback(async () => {
+    if (!!currentCompanyId) {
+      inputRef.current?.click();
+      return;
+    }
     try {
       const { data } = await getAllCompanies();
       setAllCompanies(data);
@@ -48,13 +56,7 @@ export const UploadDocument = () => {
     } catch (e) {
       throw new Error(String(e));
     }
-  }, [inputRef, getAllCompanies, createCompany]);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setIsOpenTooltip(true);
-    }, 800);
-  }, []);
+  }, [inputRef, getAllCompanies, createCompany, currentCompanyId]);
 
   const onInputHandle = useCallback(async () => {
     const file = inputRef.current?.files?.[0];
@@ -62,12 +64,47 @@ export const UploadDocument = () => {
       const formData = new FormData();
       formData.append('file', file);
       try {
-        // upload file logic
-      } catch (e) {
-        throw new Error(String(e));
+        setDocumentsData({
+          ...documentsData,
+          isDataProcessed: false,
+          isDataProvided: true,
+        });
+        const resp = await uploadResourceFile(formData, currentCompanyId);
+        setIsOpenTooltip(false);
+        if (resp) {
+          setDocumentsData({
+            ...documentsData,
+            isDataProcessed: false,
+            isDataProvided: true,
+            data: resp.data,
+          });
+        }
+      } catch (e: any) {
+        toast.error(e.message, {
+          position: 'bottom-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'dark',
+        });
       }
     }
-  }, [inputRef]);
+  }, [
+    inputRef,
+    currentCompanyId,
+    isOpenTooltip,
+    documentsData,
+    setDocumentsData,
+  ]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsOpenTooltip(true);
+    }, 800);
+  }, []);
 
   return (
     <div>
@@ -97,10 +134,95 @@ export const UploadDocument = () => {
         />
         <CustomFileInput onInput={onInputHandle} ref={inputRef} type='file' />
       </AbsolutePositioning>
+      {documentsData.isDataProvided && !documentsData.isDataProcessed && (
+        <LoadingContainer>
+          <UploadText>
+            files uploading /{documentsData.loadingProgress}%
+          </UploadText>
+          <StyledProgress value={documentsData.loadingProgress} max={100} />
+          <InfoBlock>
+            <span>
+              It can take up to 20 min. You may stay on this page or allow
+              notifications and we will send you a message when the magic
+              happens.
+            </span>
+            <CustomButtonStyled
+              type='outline'
+              onClickHandler={() => console.log('test')}
+            >
+              let me know when done
+            </CustomButtonStyled>
+          </InfoBlock>
+        </LoadingContainer>
+      )}
       <StyledLogo />
     </div>
   );
 };
+
+const LoadingContainer = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: ${({ theme }) => theme.colors.grey_800_80};
+  z-index: 1000;
+  backdrop-filter: blur(12px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
+
+const UploadText = styled.p`
+  font-size: 24px;
+  font-family: 'MartianMono';
+  color: ${({ theme }) => theme.colors.textPrimary};
+`;
+
+const StyledProgress = styled.progress`
+  width: 20%;
+  height: 8px;
+  border-radius: 15px;
+  margin-top: 20px;
+  background-color: ${({ theme }) => theme.colors.secondaryText};
+
+  &::-webkit-progress-value {
+    background-color: ${({ theme }) => theme.colors.secondaryText};
+    height: 8px;
+    border-radius: 15px;
+  }
+
+  &::-webkit-progress-bar {
+    border-radius: 15px;
+    background-color: ${({ theme }) => theme.colors.backgroundPopup};
+  }
+`;
+
+const InfoBlock = styled.div`
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  span {
+    font-size: 16px;
+    font-family: 'Formular Regular';
+    color: ${({ theme }) => theme.colors.secondaryText};
+    margin-top: 14px;
+    text-align: center;
+    max-width: 45%;
+    line-height: 1.5;
+  }
+`;
+
+const CustomButtonStyled = styled(CustomButton)`
+  margin: 50px 0;
+`;
 
 const AbsolutePositioning = styled.div`
   position: absolute;

@@ -33,7 +33,7 @@ const ButtonWrapper = styled.div<{ type: TCustomButton['type'] }>`
     if (type === 'secondary') return '40px';
     if (type === 'outline') return '50px';
   }};
-  padding: 0 20px;
+  padding: 0 30px;
   border-radius: 200px;
   border: 1px solid
     ${({ theme, type }) => {

@@ -19,11 +19,14 @@ export const createLoginSlice: StateCreator<
 > = (set) => ({
   credentials: { login: '', password: '', isLoggedIn: false },
   setCredentials: (params) =>
-    set((state) => ({
-      credentials: {
-        login: params.login || state.credentials.login,
-        password: params.password || state.credentials.password,
-        isLoggedIn: params.isLoggedIn,
-      },
-    })),
+    set(
+      (state) => ({
+        credentials: {
+          login: params.login || state.credentials.login,
+          password: params.password || state.credentials.password,
+          isLoggedIn: params.isLoggedIn,
+        },
+      }),
+      false,
+    ),
 });
