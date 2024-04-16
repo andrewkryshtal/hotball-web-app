@@ -15,6 +15,7 @@ import {
 import { uploadResourceFile } from '../api/resourcesApi';
 import { toast } from 'react-toastify';
 import { CustomButton } from '../components/CustomButton';
+import CirclesBatch from '../components/CirclesBatch';
 
 export const UploadDocument = () => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -136,6 +137,7 @@ export const UploadDocument = () => {
       </AbsolutePositioning>
       {documentsData.isDataProvided && !documentsData.isDataProcessed && (
         <LoadingContainer>
+          <CirclesBatch />
           <UploadText>
             files uploading /{documentsData.loadingProgress}%
           </UploadText>
@@ -167,7 +169,7 @@ const LoadingContainer = styled.div`
   width: 100vw;
   height: 100vh;
   background-color: ${({ theme }) => theme.colors.grey_800_80};
-  z-index: 1000;
+  z-index: 100;
   backdrop-filter: blur(12px);
   display: flex;
   justify-content: center;
