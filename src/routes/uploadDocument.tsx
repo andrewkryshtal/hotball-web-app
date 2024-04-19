@@ -75,6 +75,7 @@ export const UploadDocument = () => {
             ...documentsData,
             isDataProvided: true,
             data: resp.data,
+            loadingProgress: 100,
           });
         }
         // @ts-ignore ITS EXIST
@@ -94,6 +95,7 @@ export const UploadDocument = () => {
     documentsData.isDataProcessed,
     documentsData.isDataProvided,
     documentsData.data,
+    documentsData.loadingProgress,
     setDocumentsData,
   ]);
 
@@ -124,7 +126,11 @@ export const UploadDocument = () => {
       }, 5000);
     }
     return () => clearInterval(interval);
-  }, [documentsData.isDataProvided, documentsData.isDataProcessed]);
+  }, [
+    documentsData.isDataProvided,
+    documentsData.isDataProcessed,
+    documentsData.data,
+  ]);
 
   return (
     <div>
