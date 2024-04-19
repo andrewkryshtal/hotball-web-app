@@ -6,8 +6,8 @@ export const useBgDots = () => {
   useEffect(() => {
     const updateCirclesAmount = () => {
       const { innerWidth: width, innerHeight: height } = window;
-      const horizontalCircles = Math.floor(width / 120);
-      const verticalCircles = Math.floor(height / 120);
+      const horizontalCircles = Math.floor(width / 60);
+      const verticalCircles = Math.floor(height / 60);
       setCirclesAmount(horizontalCircles * verticalCircles);
     };
 

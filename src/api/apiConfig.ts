@@ -4,6 +4,8 @@ import { toast } from 'react-toastify';
 
 export const apiInstance = () => {
   const { login, password } = useBoundStore.getState().credentials;
+  const setCredentials = useBoundStore.getState().setCredentials;
+  const setDocumentsData = useBoundStore.getState().setDocumentsData;
 
   let api = axios.create({
     baseURL: 'https://hotball.site',
@@ -16,6 +18,8 @@ export const apiInstance = () => {
   api.interceptors.response.use(
     (response) => response,
     (error) => {
+      console.log('error', error);
+
       toast.error(error.message, {
         position: 'bottom-right',
         autoClose: 3000,
@@ -28,8 +32,10 @@ export const apiInstance = () => {
       });
       // whatever you want to do with the error
       if (error.response.status === 401) {
+        setCredentials({ login: '', password: '', isLoggedIn: false });
         window.location.href = '/login';
       }
+      return { error: 'further error handling' }; // TODO: not working in upper request
     },
   );
 

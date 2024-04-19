@@ -15,6 +15,7 @@ export const CircleElement = styled.div`
   border-radius: 50%;
   background-color: ${({ theme }) => theme.colors.black};
   box-shadow: inset 0px -1px 5px -1px ${({ theme }) => theme.colors.white_60};
+  margin: 60px;
 `;
 
 export const CirclesWrapper = styled.div`
@@ -23,6 +24,5 @@ export const CirclesWrapper = styled.div`
   align-items: flex-start;
   flex-wrap: wrap;
   height: 100%;
-  gap: 120px;
-  padding: 80px;
+  padding-right: 0;
 `;

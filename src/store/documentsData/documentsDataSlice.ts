@@ -13,10 +13,10 @@ export type TdocumentsDataSlice = {
     loadingProgress, // number
     data,
   }: {
-    isDataProvided: boolean;
-    isDataProcessed: boolean;
+    isDataProvided?: boolean;
+    isDataProcessed?: boolean;
     loadingProgress?: number;
-    data: Record<string, unknown>;
+    data?: Record<string, unknown>;
   }) => void;
   setProgress: (progress: number) => void;
 };
@@ -37,9 +37,7 @@ export const createDocumentsDataSlice: StateCreator<
     set((state: TdocumentsDataSlice) => ({
       documentsData: {
         ...state.documentsData,
-        isDataProvided: params.isDataProvided,
-        isDataProcessed: params.isDataProcessed,
-        data: params.data,
+        ...params,
       },
     })),
   setProgress: (progress) =>

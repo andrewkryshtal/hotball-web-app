@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { CircleElement, CirclesWrapper } from '../styles/misc';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { ThreeCircledButton } from '../components/ThreeCirclesButton';
 import { Tooltip } from 'react-tooltip';
@@ -7,23 +6,22 @@ import { Theme } from '../theme/theme';
 import { useBoundStore } from '../store/store';
 import HotballLogo from '../assets/HotballLogoDownloadScreen.svg?react';
 import { createCompany, getAllCompanies } from '../api/companiesApi';
-import { useBgDots } from '../hooks/useBgDots';
 import {
   companySetters,
   getCurrentCompanySelector,
 } from '../store/company/companySelectors';
-import { uploadResourceFile } from '../api/resourcesApi';
-import { toast } from 'react-toastify';
+import { getAllFiles, uploadResourceFile } from '../api/resourcesApi';
 import { CustomButton } from '../components/CustomButton';
 import CirclesBatch from '../components/CirclesBatch';
+import { DotsBackground } from '../components/DotsBackground';
+import { useNavigate } from 'react-router-dom';
 
 export const UploadDocument = () => {
+  const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement>(null);
   const { setAllCompanies, setCompany } = useBoundStore(companySetters);
   const { id: currentCompanyId } = useBoundStore(getCurrentCompanySelector);
   const { setDocumentsData, documentsData } = useBoundStore((state) => state);
-
-  const { circlesAmount } = useBgDots();
 
   const [isOpenTooltip, setIsOpenTooltip] = useState<boolean>(false);
 
@@ -67,37 +65,35 @@ export const UploadDocument = () => {
       try {
         setDocumentsData({
           ...documentsData,
-          isDataProcessed: false,
           isDataProvided: true,
         });
         const resp = await uploadResourceFile(formData, currentCompanyId);
         setIsOpenTooltip(false);
-        if (resp) {
+        // @ts-ignore ITS EXIST
+        if (resp && !resp.error) {
           setDocumentsData({
             ...documentsData,
-            isDataProcessed: false,
             isDataProvided: true,
             data: resp.data,
           });
         }
-      } catch (e: any) {
-        toast.error(e.message, {
-          position: 'bottom-right',
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'dark',
-        });
+        // @ts-ignore ITS EXIST
+        if (resp.error) {
+          setDocumentsData({
+            isDataProvided: false,
+          });
+        }
+      } catch (e) {
+        // nothing here because of interceptor
       }
     }
   }, [
     inputRef,
     currentCompanyId,
     isOpenTooltip,
-    documentsData,
+    documentsData.isDataProcessed,
+    documentsData.isDataProvided,
+    documentsData.data,
     setDocumentsData,
   ]);
 
@@ -107,13 +103,32 @@ export const UploadDocument = () => {
     }, 800);
   }, []);
 
+  useEffect(() => {
+    let interval: any;
+
+    if (documentsData.isDataProvided) {
+      interval = setInterval(() => {
+        getAllFiles(currentCompanyId).then((resp) => {
+          console.log({
+            respId: resp.data[0].id,
+            documentId: documentsData.data.id,
+          });
+
+          if (
+            resp.data[0].id === documentsData.data.id &&
+            resp.data[0].status === 'PARSED'
+          ) {
+            navigate('/');
+          }
+        });
+      }, 5000);
+    }
+    return () => clearInterval(interval);
+  }, [documentsData.isDataProvided, documentsData.isDataProcessed]);
+
   return (
     <div>
-      <CirclesWrapperStyled>
-        {[...Array(circlesAmount)].map((_, index) => (
-          <CircleElement key={index} />
-        ))}
-      </CirclesWrapperStyled>
+      <DotsBackground />
       <AbsolutePositioning>
         <WelcomeText>Welcome</WelcomeText>
         <StyledThreeCircledButton
@@ -236,12 +251,6 @@ const WelcomeText = styled.p`
   font-size: 160px;
   font-family: 'MartianMono';
   color: ${({ theme }) => theme.colors.textTertiary};
-`;
-
-const CirclesWrapperStyled = styled(CirclesWrapper)`
-  height: 100vh;
-  width: 100%;
-  overflow: hidden;
 `;
 
 const StyledThreeCircledButton = styled(ThreeCircledButton)`

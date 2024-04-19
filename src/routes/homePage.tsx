@@ -3,7 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { credentialsSelectors } from '../store/login/loginSelectors';
 import { useBoundStore } from '../store/store';
 import { isDataProvidedSelector } from '../store/documentsData/documentsSelectors';
-import { CircleElement, CirclesWrapper } from '../styles/misc';
+import { DotsBackground } from '../components/DotsBackground';
+import HotballLogo from '../assets/HotballLogoDownloadScreen.svg?react';
+import styled from 'styled-components';
+import { HomeLoadContainer } from '../components/HomeLoadContainer';
 
 export const HomePage = () => {
   const navigate = useNavigate();
@@ -20,11 +23,15 @@ export const HomePage = () => {
 
   return (
     <>
-      <CirclesWrapper>
-        <CircleElement />
-        <CircleElement />
-        <CircleElement />
-      </CirclesWrapper>
+      <DotsBackground width='120%' />
+      <HomeLoadContainer />
+      <StyledLogo />
     </>
   );
 };
+
+const StyledLogo = styled(HotballLogo)`
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+`;

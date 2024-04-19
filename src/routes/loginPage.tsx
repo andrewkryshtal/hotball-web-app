@@ -22,7 +22,9 @@ const LoginPage = () => {
   const onLoginHandler = useCallback(() => {
     setCredentials({ login, password, isLoggedIn: false });
     loginApi()
-      .then(() => {
+      .then((data) => {
+        console.log({ data });
+
         setCredentials({ login, password, isLoggedIn: true });
         navigate('/');
       })

@@ -17,7 +17,6 @@ export const uploadResourceFile = (formData: FormData, companyId: string) => {
         const progress = Math.round(
           (progressEvent.loaded * 100) / (progressEvent.total ?? 0),
         );
-        console.log({ progress }); // Update progress in Zustand store
         unstable_batchedUpdates(() => {
           useBoundStore.getState().setProgress(progress);
         });
@@ -25,3 +24,10 @@ export const uploadResourceFile = (formData: FormData, companyId: string) => {
     },
   );
 };
+
+export const getAllFiles = (companyId: string) =>
+  apiInstance().get(`/v1/private/resource/files/get-all`, {
+    params: {
+      companyId,
+    },
+  });
