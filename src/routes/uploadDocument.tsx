@@ -15,6 +15,7 @@ import { CustomButton } from '../components/CustomButton';
 import CirclesBatch from '../components/CirclesBatch';
 import { DotsBackground } from '../components/DotsBackground';
 import { useNavigate } from 'react-router-dom';
+import { ProgressBar } from '../components/ProgressBar';
 
 export const UploadDocument = () => {
   const navigate = useNavigate();
@@ -120,6 +121,10 @@ export const UploadDocument = () => {
             resp.data[0].id === documentsData.data.id &&
             resp.data[0].status === 'PARSED'
           ) {
+            setDocumentsData({
+              ...documentsData,
+              isDataProcessed: true,
+            });
             navigate('/');
           }
         });
@@ -162,7 +167,11 @@ export const UploadDocument = () => {
           <UploadText>
             files uploading /{documentsData.loadingProgress}%
           </UploadText>
-          <StyledProgress value={documentsData.loadingProgress} max={100} />
+          <ProgressBar
+            progress={documentsData.loadingProgress}
+            width={20}
+            height={8}
+          />
           <InfoBlock>
             <span>
               It can take up to 20 min. You may stay on this page or allow
@@ -202,25 +211,6 @@ const UploadText = styled.p`
   font-size: 24px;
   font-family: 'MartianMono';
   color: ${({ theme }) => theme.colors.textPrimary};
-`;
-
-const StyledProgress = styled.progress`
-  width: 20%;
-  height: 8px;
-  border-radius: 15px;
-  margin-top: 20px;
-  background-color: ${({ theme }) => theme.colors.secondaryText};
-
-  &::-webkit-progress-value {
-    background-color: ${({ theme }) => theme.colors.secondaryText};
-    height: 8px;
-    border-radius: 15px;
-  }
-
-  &::-webkit-progress-bar {
-    border-radius: 15px;
-    background-color: ${({ theme }) => theme.colors.backgroundPopup};
-  }
 `;
 
 const InfoBlock = styled.div`

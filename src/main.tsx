@@ -1,6 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from 'react-router-dom';
 import { ComponentsPage } from './routes/components'; // Fix the casing of the import statement
 
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
@@ -13,6 +17,8 @@ import martianMono from './assets/fonts/martianMonoVariableFont.ttf';
 import formularRegular from './assets/fonts/formularRegular.otf';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
+import { AuthGuard } from './components/AuthGuard';
+// import { useBoundStore } from './store/store';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -42,7 +48,7 @@ const GlobalStyle = createGlobalStyle`
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <HomePage />,
+    element: <AuthGuard To={<HomePage />} />,
     errorElement: <div>404 Not Found</div>,
   },
   {
