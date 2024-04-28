@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { noSelect } from '../styles/misc';
 
-type TCircle = {
+export type TCircle = {
   size: 'smallCircle' | 'largeCircle' | 'xSmallCircle' | 'xLargeCircle';
   type:
     | 'orange'
@@ -16,6 +16,7 @@ type TCircle = {
   title?: string;
   percentage?: number;
   className?: string;
+  style?: React.CSSProperties;
   onClick?: () => void;
 };
 
@@ -24,13 +25,14 @@ export const CircleComponent = ({
   type = 'orange',
   text,
   title,
-  className,
   percentage,
+  className,
+  style,
   onClick = () => console.log('click'),
 }: TCircle) => {
   return (
     // TODO: wrap component in a styled-component
-    <div className={className} style={{ position: 'relative' }}>
+    <MainWrapper className={className} style={style}>
       <ShadowLayer $size={size} />
       {title && (
         <TitleSection $size={size} $type={type}>
@@ -62,9 +64,14 @@ export const CircleComponent = ({
           <Text $type={type}>{text}</Text>
         )}
       </CircleLayer>
-    </div>
+    </MainWrapper>
   );
 };
+
+const MainWrapper = styled.div`
+  position: absolute;
+  width: fit-content;
+`;
 
 const ShadowLayer = styled.div<{ $size: TCircle['size'] }>`
   width: 150px;
@@ -72,9 +79,9 @@ const ShadowLayer = styled.div<{ $size: TCircle['size'] }>`
   background: linear-gradient(90deg, #000000 -50%, rgba(25, 26, 28, 0) 100%);
   transform: rotate(45deg);
   left: ${({ $size }) => {
-    if ($size === 'xSmallCircle') return '1.4%';
+    if ($size === 'xSmallCircle') return '21px';
     if ($size === 'smallCircle') return '1.7%';
-    if ($size === 'largeCircle') return '2%';
+    if ($size === 'largeCircle') return '25px';
     if ($size === 'xLargeCircle') return '2%';
   }};
   top: ${({ $size }) => {

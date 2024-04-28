@@ -4,15 +4,23 @@ type TProgressBar = {
   progress: number;
   width: number;
   height: number;
+  className?: string;
 };
 
 export const ProgressBar: React.FC<TProgressBar> = ({
   progress,
   width,
   height,
+  className,
 }) => {
   return (
-    <StyledProgress width={width} height={height} value={progress} max={100} />
+    <StyledProgress
+      className={className}
+      width={width}
+      height={height}
+      value={progress}
+      max={100}
+    />
   );
 };
 

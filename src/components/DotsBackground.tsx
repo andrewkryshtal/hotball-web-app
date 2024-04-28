@@ -4,15 +4,17 @@ import { useBgDots } from '../hooks/useBgDots';
 
 type TDotsBackground = {
   width?: string;
+  height?: string;
 };
 
 export const DotsBackground: React.FC<TDotsBackground> = ({
   width = '100%',
+  height = '100',
 }) => {
   const { circlesAmount } = useBgDots();
 
   return (
-    <CirclesWrapperStyled $width={width}>
+    <CirclesWrapperStyled $width={width} $height={height}>
       {[...Array(circlesAmount)].map((_, index) => (
         <CircleElement key={index} />
       ))}
@@ -20,8 +22,11 @@ export const DotsBackground: React.FC<TDotsBackground> = ({
   );
 };
 
-const CirclesWrapperStyled = styled(CirclesWrapper)<{ $width: string }>`
-  height: 100vh;
+const CirclesWrapperStyled = styled(CirclesWrapper)<{
+  $width: string;
+  $height: string;
+}>`
+  height: ${({ $height }) => $height}vh;
   width: ${({ $width }) => $width};
   overflow: hidden;
 `;

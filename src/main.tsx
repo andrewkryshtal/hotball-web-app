@@ -1,10 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import {
-  createBrowserRouter,
-  Navigate,
-  RouterProvider,
-} from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { ComponentsPage } from './routes/components'; // Fix the casing of the import statement
 
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
