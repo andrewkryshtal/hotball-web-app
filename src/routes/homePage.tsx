@@ -34,7 +34,6 @@ export const HomePage = () => {
         circlesType={'blue'}
         position={spinnersPositions[3]}
       />
-      {/* <FidgetSpinnerComponent circlesType={'purple'} /> */}
     </>
   );
 };
