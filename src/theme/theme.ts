@@ -58,6 +58,7 @@ export const Theme = {
     grey_100: hexToRGBA('#FFFFFF', 0.5),
     grey_500: '#4C5964',
     grey_600: '#3A424A',
+    grey_600_60: hexToRGBA('#3A424A', 0.6),
     grey_800: '#191A1C',
     grey_800_80: hexToRGBA('#191A1C', 0.8),
   },

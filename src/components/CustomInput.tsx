@@ -138,8 +138,7 @@ const StyledInput = styled.input<{
   color: ${({ theme, disabled }) =>
     !disabled ? theme.colors.white : theme.colors.buttonDisabled};
   &::placeholder {
-    color: ${({ theme, disabled }) =>
-      !disabled ? theme.colors.white : theme.colors.buttonDisabled};
+    color: ${({ theme }) => theme.colors.buttonDisabled};
   }
   &:focus {
     outline: none;

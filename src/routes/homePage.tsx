@@ -4,6 +4,9 @@ import styled from 'styled-components';
 import { HomeLoadContainer } from '../components/HomeLoadContainer';
 import { FidgetSpinnerComponent } from '../components/FidgetSpinnerComponent';
 import { DoubleFidgetSpinnerComponent } from '../components/DoubleFidgetSpinnerComponent';
+import { Modal } from '../components/Modal';
+import { useCallback, useState } from 'react';
+import { SectionContent } from '../components/SectionContent';
 
 const spinnersPositions = {
   0: { top: '525px', left: '142px' },
@@ -13,6 +16,11 @@ const spinnersPositions = {
 };
 
 export const HomePage = () => {
+  const [showModal, setShowModal] = useState(false);
+
+  const onCirclePressHandler = useCallback(() => {
+    setShowModal(!showModal);
+  }, [showModal]);
   return (
     <>
       <DotsBackground width='120%' height='120' />
@@ -21,6 +29,7 @@ export const HomePage = () => {
       <FidgetSpinnerComponent
         position={spinnersPositions[0]}
         circlesType={'orange'}
+        onCirclePress={onCirclePressHandler}
       />
       <FidgetSpinnerComponent
         position={spinnersPositions[1]}
@@ -34,6 +43,9 @@ export const HomePage = () => {
         circlesType={'blue'}
         position={spinnersPositions[3]}
       />
+      <Modal showModal={showModal} setShowModal={setShowModal}>
+        <SectionContent />
+      </Modal>
     </>
   );
 };
