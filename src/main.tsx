@@ -20,6 +20,8 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
 
+console.log('test push');
+
 const GlobalStyle = createGlobalStyle`
         ${reset}
         @font-face {
